@@ -7,13 +7,14 @@ import retrofit2.Call
 import retrofit2.http.*
 
 /**
- * dKilo API Retrofit interface.
+ *  API Retrofit interface.
  */
 interface ApiInterface {
     /**
-     * Check app status (for version check if there is an update).
+     * get movies
      */
-    @GET("now_playing")
-     fun getNowPlayingMovies(): Call<MovieResponse>
+    @GET
+    fun getMovies(@Url moviesType: String): Call<MovieResponse>
+
 
 }

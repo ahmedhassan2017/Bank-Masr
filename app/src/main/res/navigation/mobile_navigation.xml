@@ -7,19 +7,26 @@
 
     <fragment
         android:id="@+id/navigation_popular"
-        android:name="banquemisr.challenge05.ui.Popular.PopularFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_popular" />
+        android:name="banquemisr.challenge05.ui.movies.home.MoviesFragment"
+        android:label="Popular"
+        tools:layout="@layout/fragment_movies" />
 
     <fragment
         android:id="@+id/navigation_nowplaying"
-        android:name="banquemisr.challenge05.ui.NowPlaying.NowPlayingFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_nowplaying" />
+        android:name="banquemisr.challenge05.ui.movies.home.MoviesFragment"
+        android:label="Now playing"
+        tools:layout="@layout/fragment_movies" />
 
     <fragment
         android:id="@+id/navigation_upcomming"
-        android:name="banquemisr.challenge05.ui.Upcoming.UpcomingFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_upcoming" />
+        android:name="banquemisr.challenge05.ui.movies.home.MoviesFragment"
+        android:label="Upcoming"
+        tools:layout="@layout/fragment_movies" />
+    <fragment
+        android:id="@+id/detailesFragment"
+        android:name="banquemisr.challenge05.ui.movies.details.DetailesFragment"
+        android:label="fragment_detailes"
+        tools:layout="@layout/fragment_detailes" />
+
+
 </navigation>
