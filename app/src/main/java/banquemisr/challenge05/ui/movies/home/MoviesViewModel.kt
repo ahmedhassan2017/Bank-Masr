@@ -7,24 +7,25 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import banquemisr.challenge05.Models.MovieResponse
-import banquemisr.challenge05.data.remote.ApiResponse
 import banquemisr.challenge05.ui.movies.repository.MoviesRepo
 import banquemisr.challenge05.utils.SingleLiveEvent
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import java.util.concurrent.atomic.AtomicBoolean
+import javax.inject.Inject
 
-class MoviesViewModel : ViewModel()
+@HiltViewModel
+class MoviesViewModel  @Inject constructor(val repo: MoviesRepo) : ViewModel()
 {
     val nowPlayingLivedata = MutableLiveData<MovieResponse>()
     val popularLivedata = MutableLiveData<MovieResponse>()
     val upcomingLivedata = MutableLiveData<MovieResponse>()
     val error = SingleLiveEvent<String?>()
     var isLoading = MutableLiveData<Boolean>()
-    val repo = MoviesRepo()
 
     fun getMovies(type: String)
     {

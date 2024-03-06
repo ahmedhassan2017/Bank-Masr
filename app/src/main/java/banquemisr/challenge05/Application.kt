@@ -1,16 +1,14 @@
 package banquemisr.challenge05
 
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.HiltAndroidApp
 import io.reactivex.exceptions.UndeliverableException
 import io.reactivex.plugins.RxJavaPlugins
 import java.io.File
 import android.app.Application as AndroidApplication
-
+@HiltAndroidApp
 class Application: AndroidApplication() {
-    companion object {
-//        lateinit var appCacheDir: File
 
-
-    }
 
     override fun onCreate() {
         super.onCreate()
@@ -26,9 +24,6 @@ class Application: AndroidApplication() {
                 }
             }
         }
-
-//        appCacheDir = cacheDir
-
 
 
     }

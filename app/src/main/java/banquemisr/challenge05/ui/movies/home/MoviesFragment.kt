@@ -18,9 +18,11 @@ import banquemisr.challenge05.ui.movies.home.adapters.OnMovieClickListener
 import banquemisr.challenge05.ui.movies.repository.MoviesRepo
 import banquemisr.challenge05.utils.AppUtils.navigateToDestination
 import banquemisr.challenge05.utils.Constants
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 
+@AndroidEntryPoint
 class MoviesFragment : Fragment(), OnMovieClickListener
 {
 
