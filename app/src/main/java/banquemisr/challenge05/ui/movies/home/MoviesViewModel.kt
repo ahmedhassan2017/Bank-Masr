@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import banquemisr.challenge05.Models.MovieResponse
-import banquemisr.challenge05.domain.repositories.MoviesRepo
 import banquemisr.challenge05.domain.usecases.GetMoviesUseCase
 import banquemisr.challenge05.utils.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
