@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -18,6 +19,7 @@ import banquemisr.challenge05.ui.movies.home.adapters.OnMovieClickListener
 import banquemisr.challenge05.data.repository.MoviesRepoImp
 import banquemisr.challenge05.utils.AppUtils.navigateToDestination
 import banquemisr.challenge05.utils.Constants
+import banquemisr.challenge05.utils.isNetworkAvailable
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -32,20 +34,29 @@ class MoviesFragment : Fragment(), OnMovieClickListener
     lateinit var binding: FragmentMoviesBinding
 
     private val viewModel: MoviesViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
+        super.onCreate(savedInstanceState)
+
+        if (isNetworkAvailable(requireContext()))
+        {
+            viewModel.getMovies("top_rated")
+            viewModel.getMovies("now_playing")
+            viewModel.getMovies("upcoming")
+        } else
+        {
+            Toast.makeText(requireContext(), "Check your network connection", Toast.LENGTH_LONG).show()
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
     {
         binding = FragmentMoviesBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
         setupObservers()
-        viewModel.getMovies("top_rated")
-        viewModel.getMovies("now_playing")
-        viewModel.getMovies("upcoming")
 
-
-
-
-        return root
+        return binding.root
     }
 
     private fun setupObservers()
