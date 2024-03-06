@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import banquemisr.challenge05.Models.MovieResponse
 import banquemisr.challenge05.data.remote.ApiResponse
 import banquemisr.challenge05.ui.movies.repository.MoviesRepo
+import banquemisr.challenge05.utils.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -45,37 +46,4 @@ class MoviesViewModel : ViewModel()
     }
 }
 
-
-class SingleLiveEvent<T> : MutableLiveData<T>()
-{
-    private val mPending = AtomicBoolean(false)
-
-    @MainThread override fun observe(owner: LifecycleOwner, observer: Observer<in T>)
-    {
-        if (hasActiveObservers())
-        {
-//            Log.w(TAG, "Multiple observers registered but only one will be notified of changes.")
-        }
-        // Observe the internal MutableLiveData
-        super.observe(owner) { t ->
-            if (mPending.compareAndSet(true, false))
-            {
-                observer.onChanged(t)
-            }
-        }
-    }
-
-    @MainThread override fun setValue(t: T?)
-    {
-        mPending.set(true)
-        super.setValue(t)
-    }
-
-
-    override fun postValue(value: T)
-    {
-        mPending.set(true)
-        super.postValue(value)
-    }
-}
 
