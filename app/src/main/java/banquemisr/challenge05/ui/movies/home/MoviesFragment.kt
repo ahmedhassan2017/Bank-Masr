@@ -80,6 +80,7 @@ class MoviesFragment : Fragment(), OnMovieClickListener
 
             viewModel.error.observe(viewLifecycleOwner) {
                 Log.i("TAG", "error: $it")
+                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
             }
 
         }
