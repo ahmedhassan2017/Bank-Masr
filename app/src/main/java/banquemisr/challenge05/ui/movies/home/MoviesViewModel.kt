@@ -19,7 +19,7 @@ class MoviesViewModel() : ViewModel()
      val popularLivedata = MutableLiveData<ApiResponse<MovieResponse>?>()
      val upcomingLivedata = MutableLiveData<ApiResponse<MovieResponse>?>()
      val error = SingleLiveEvent<String?>()
-    var isLoading = SingleLiveEvent<Boolean>()
+    var isLoading = MutableLiveData<Boolean>()
 
 
     fun getMovies(type:String) {
