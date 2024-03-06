@@ -2,17 +2,18 @@ package banquemisr.challenge05.ui.movies.repository
 
 import banquemisr.challenge05.Models.MovieResponse
 import banquemisr.challenge05.data.remote.ApiClient
-import banquemisr.challenge05.data.remote.ApiResponse
-import banquemisr.challenge05.utils.AppUtils
 import banquemisr.challenge05.utils.Constants
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 
-object  MoviesRepo
+object MoviesRepo
 {
-      fun getMovies(type:String): ApiResponse<MovieResponse>
+    suspend fun getMovies(type: String): Flow<MovieResponse>
     {
-        val call = ApiClient.authenticated(Constants.token).service().getMovies(type)
-        return ApiResponse.forCall(call)
+        return flow {
+            emit(ApiClient.authenticated(Constants.token).service().getMovies(type))
+        }.flowOn(Dispatchers.IO)
     }
-
-
 }

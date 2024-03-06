@@ -14,7 +14,7 @@ interface ApiInterface {
      * get movies
      */
     @GET
-    fun getMovies(@Url moviesType: String): Call<MovieResponse>
+    suspend fun getMovies(@Url moviesType: String): MovieResponse
 
 
 }

@@ -2,6 +2,7 @@ package banquemisr.challenge05.data.remote
 
 import banquemisr.challenge05.Application
 import banquemisr.challenge05.BuildConfig
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.Cache
@@ -96,12 +97,13 @@ class ApiClient {
         if (!::mRetrofit.isInitialized) {
             val client = client()
             val moshi = Moshi.Builder()
-                .addLast(KotlinJsonAdapterFactory())
+                .add(KotlinJsonAdapterFactory())
                 .build()
 
             mRetrofit = Retrofit.Builder()
                 .client(client)
                 .addConverterFactory(MoshiConverterFactory.create(moshi))
+
                 .baseUrl(BuildConfig.API_BASE).build()
         }
 

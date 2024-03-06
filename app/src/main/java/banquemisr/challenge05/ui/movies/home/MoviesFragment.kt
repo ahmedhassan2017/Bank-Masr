@@ -53,18 +53,18 @@ class MoviesFragment : Fragment(), OnMovieClickListener
     {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.nowPlayingLivedata.observe(viewLifecycleOwner) { movies ->
-                nowPlayingAdapter = MoviesAdapter(movies?.data?.results, this@MoviesFragment)
-                presentData(nowPlayingAdapter, movies?.data?.results, binding.nowPlayingRv)
+                nowPlayingAdapter = MoviesAdapter(movies?.results, this@MoviesFragment)
+                presentData(nowPlayingAdapter, movies?.results, binding.nowPlayingRv)
 
             }
             viewModel.popularLivedata.observe(viewLifecycleOwner) { movies ->
-                popularAdapter = MoviesAdapter(movies?.data?.results, this@MoviesFragment)
-                presentData(popularAdapter, movies?.data?.results, binding.popularRv)
+                popularAdapter = MoviesAdapter(movies?.results, this@MoviesFragment)
+                presentData(popularAdapter, movies?.results, binding.popularRv)
 
             }
             viewModel.upcomingLivedata.observe(viewLifecycleOwner) { movies ->
-                upcomingAdapter = MoviesAdapter(movies?.data?.results, this@MoviesFragment)
-                presentData(upcomingAdapter, movies?.data?.results, binding.upcomingRv)
+                upcomingAdapter = MoviesAdapter(movies?.results, this@MoviesFragment)
+                presentData(upcomingAdapter, movies?.results, binding.upcomingRv)
 
             }
 
