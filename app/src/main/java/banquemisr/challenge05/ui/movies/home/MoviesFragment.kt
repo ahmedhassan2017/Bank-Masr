@@ -15,7 +15,7 @@ import banquemisr.challenge05.R
 import banquemisr.challenge05.databinding.FragmentMoviesBinding
 import banquemisr.challenge05.ui.movies.home.adapters.MoviesAdapter
 import banquemisr.challenge05.ui.movies.home.adapters.OnMovieClickListener
-import banquemisr.challenge05.ui.movies.repository.MoviesRepo
+import banquemisr.challenge05.data.repository.MoviesRepoImp
 import banquemisr.challenge05.utils.AppUtils.navigateToDestination
 import banquemisr.challenge05.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,9 +31,6 @@ class MoviesFragment : Fragment(), OnMovieClickListener
     private var upcomingAdapter: MoviesAdapter? = null
     lateinit var binding: FragmentMoviesBinding
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    var nowPlayingRepository: MoviesRepo? = null
     private val viewModel: MoviesViewModel by viewModels()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
     {
