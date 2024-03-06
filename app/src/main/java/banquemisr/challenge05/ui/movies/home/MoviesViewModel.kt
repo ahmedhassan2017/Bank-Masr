@@ -24,11 +24,12 @@ class MoviesViewModel : ViewModel()
     val upcomingLivedata = MutableLiveData<MovieResponse>()
     val error = SingleLiveEvent<String?>()
     var isLoading = MutableLiveData<Boolean>()
+    val repo = MoviesRepo()
 
     fun getMovies(type: String)
     {
         viewModelScope.launch(Dispatchers.IO) {
-            MoviesRepo.getMovies(type).onStart {
+            repo.getMovies(type).onStart {
                 isLoading.postValue(true)
             }.catch {
                 isLoading.postValue(false)
