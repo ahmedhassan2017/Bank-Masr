@@ -28,6 +28,9 @@ import kotlinx.coroutines.launch
 class MoviesFragment : Fragment(), OnMovieClickListener
 {
 
+    private var loadingView: View? = null
+    private var internetView: View? = null
+    private var internetText: View? = null
     private var nowPlayingAdapter: MoviesAdapter? = null
     private var popularAdapter: MoviesAdapter? = null
     private var upcomingAdapter: MoviesAdapter? = null
@@ -39,24 +42,34 @@ class MoviesFragment : Fragment(), OnMovieClickListener
     {
         super.onCreate(savedInstanceState)
 
-        if (isNetworkAvailable(requireContext()))
-        {
-            viewModel.getMovies("top_rated")
-            viewModel.getMovies("now_playing")
-            viewModel.getMovies("upcoming")
-        } else
-        {
-            Toast.makeText(requireContext(), "Check your network connection", Toast.LENGTH_LONG).show()
-        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
     {
         binding = FragmentMoviesBinding.inflate(inflater, container, false)
-
+        loadingView = binding.root.findViewById(R.id.loading_view)
+        internetView = binding.root.findViewById(R.id.check_internet_view)
+        internetText = binding.root.findViewById(R.id.check_internet_text)
         setupObservers()
+        fetchMovies()
 
+       internetText?.setOnClickListener { fetchMovies() }
         return binding.root
+    }
+
+    private fun fetchMovies()
+    {
+        if (isNetworkAvailable(requireContext()))
+        {
+            internetView?.visibility = View.GONE
+            viewModel.getMovies("top_rated")
+            viewModel.getMovies("now_playing")
+            viewModel.getMovies("upcoming")
+        } else {
+
+            internetView?.visibility = View.VISIBLE
+        }
+
     }
 
     private fun setupObservers()
@@ -79,8 +92,14 @@ class MoviesFragment : Fragment(), OnMovieClickListener
             }
 
             viewModel.error.observe(viewLifecycleOwner) {
-                Log.i("TAG", "error: $it")
-                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+                if (it?.startsWith("Failed") == true) internetView?.visibility = View.VISIBLE
+                else Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+            }
+
+            viewModel.isLoading.observe(viewLifecycleOwner) {
+                if (it) loadingView?.visibility = View.VISIBLE
+                else loadingView?.visibility = View.GONE
+
             }
 
         }

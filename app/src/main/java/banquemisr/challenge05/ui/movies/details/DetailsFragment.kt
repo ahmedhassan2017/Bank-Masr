@@ -27,32 +27,33 @@ class DetailsFragment : Fragment()
 {
     lateinit var binding: FragmentDetailesBinding
     private val viewModel: DetailsViewModel  by viewModels()
+    private var loadingView: View? = null
+    private var internetView: View? = null
+    private var internetText: View? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
         binding = FragmentDetailesBinding.inflate(inflater, container, false)
+        loadingView = binding.root.findViewById(R.id.loading_view)
+        internetView = binding.root.findViewById(R.id.check_internet_view)
+        internetText = binding.root.findViewById(R.id.check_internet_text)
+
         setupObservers()
-
-
-
-        if (isNetworkAvailable(requireContext()))
-        {
-            Constants.selectedMovieId?.let { viewModel.getMovieDetails(it) }
-        } else
-        {
-            Toast.makeText(requireContext(), "Check your network connection", Toast.LENGTH_LONG).show()
-        }
-
-
-
-
-
-
-
-
-
+        fetchMovieDetails()
+        internetText?.setOnClickListener { fetchMovieDetails() }
 
         return binding.root
+
+    }
+
+    private fun fetchMovieDetails()
+    {
+        if (isNetworkAvailable(requireContext()))
+        {
+            internetView?.visibility = View.GONE
+            Constants.selectedMovieId?.let { viewModel.getMovieDetails(it) }
+
+        } else internetView?.visibility = View.VISIBLE
 
     }
 
@@ -89,9 +90,17 @@ class DetailsFragment : Fragment()
 
             }
 
+
+
             viewModel.error.observe(viewLifecycleOwner) {
-                Log.i("TAG", "error: $it")
-                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+                if (it?.startsWith("Failed") == true) internetView?.visibility = View.VISIBLE
+                else Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+            }
+
+            viewModel.isLoading.observe(viewLifecycleOwner) {
+                if (it) loadingView?.visibility = View.VISIBLE
+                else loadingView?.visibility = View.GONE
+
             }
 
         }
