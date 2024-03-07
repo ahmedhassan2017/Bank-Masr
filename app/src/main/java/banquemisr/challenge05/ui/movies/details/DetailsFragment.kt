@@ -1,20 +1,20 @@
 package banquemisr.challenge05.ui.movies.details
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import banquemisr.challenge05.R
 import banquemisr.challenge05.databinding.FragmentDetailesBinding
-import banquemisr.challenge05.databinding.FragmentMoviesBinding
-import banquemisr.challenge05.ui.movies.home.MoviesViewModel
-import banquemisr.challenge05.ui.movies.home.adapters.MoviesAdapter
+import banquemisr.challenge05.ui.movies.details.adapters.GenreAdapter
 import banquemisr.challenge05.utils.Constants
+import banquemisr.challenge05.utils.formatToOneDecimalPlace
 import banquemisr.challenge05.utils.isNetworkAvailable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -42,6 +42,10 @@ class DetailsFragment : Fragment()
         fetchMovieDetails()
         internetText?.setOnClickListener { fetchMovieDetails() }
 
+
+
+
+
         return binding.root
 
     }
@@ -64,29 +68,16 @@ class DetailsFragment : Fragment()
             viewModel.movieDetailsLivedata.observe(viewLifecycleOwner) { movie ->
                 val poster= "https://www.themoviedb.org/t/p/w342${movie?.posterPath}"
                 val backDrop= "https://www.themoviedb.org/t/p/w1066_and_h600_bestv2${movie?.backdropPath}"
-
-                Glide.with(requireContext())
-                    .load(poster)
-                    .placeholder(R.drawable.ic_launcher_foreground) // Placeholder image while loading
-                    .error(R.drawable.ic_launcher_background) // Image to show if loading fails
-                    .transition(DrawableTransitionOptions.withCrossFade()) // Fade animation
-                    .into(binding.movieImage) // Your ImageView instance
-
-
-                Glide.with(requireContext())
-                    .load(backDrop)
-                    .placeholder(R.drawable.ic_launcher_foreground) // Placeholder image while loading
-                    .error(R.drawable.ic_launcher_background) // Image to show if loading fails
-                    .transition(DrawableTransitionOptions.withCrossFade()) // Fade animation
-                    .into(binding.backdropImage) // Your ImageView instance
-
-
+                setImage(poster,binding.movieImage)
+                setImage(backDrop,binding.backdropImage)
                 binding.movieOverview.text = movie?.overview
-                binding.moviePopularity.text = movie?.popularity?.toInt().toString()
-                binding.movieRate.text = movie?.voteAverage?.toInt().toString()
+                binding.movieRate.text = movie?.voteAverage?.formatToOneDecimalPlace().toString()
                 binding.movieTitle.text = movie?.originalTitle
-                binding.originalLang.text = movie?.originalLanguage
-                binding.movieVoteCount.text = movie?.voteCount.toString()
+
+                val adapter = GenreAdapter(movie?.genres)
+                binding.genreRv.adapter = adapter
+                binding.genreRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
 
             }
 
@@ -107,6 +98,18 @@ class DetailsFragment : Fragment()
 
     }
 
+    private fun setImage(poster: String, movieImage: ImageView)
+    {
+
+        Glide.with(requireContext())
+            .load(poster)
+            .placeholder(R.drawable.ic_launcher_foreground) // Placeholder image while loading
+            .error(R.drawable.ic_launcher_foreground) // Image to show if loading fails
+            .transition(DrawableTransitionOptions.withCrossFade()) // Fade animation
+            .into(movieImage) // Your ImageView instance
+
+
+    }
 
 
 }

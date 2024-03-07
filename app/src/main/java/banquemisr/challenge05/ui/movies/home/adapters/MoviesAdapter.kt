@@ -39,7 +39,7 @@ class MoviesAdapter(private var movies: List<Movie>?,
         Glide.with(holder.itemView.context)
             .load(poster)
             .placeholder(R.drawable.ic_launcher_foreground) // Placeholder image while loading
-            .error(R.drawable.ic_launcher_background) // Image to show if loading fails
+            .error(R.drawable.ic_launcher_foreground) // Image to show if loading fails
             .transition(DrawableTransitionOptions.withCrossFade()) // Fade animation
             .into(holder.binding.movieImage) // Your ImageView instance
 

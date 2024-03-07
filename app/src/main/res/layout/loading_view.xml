@@ -7,7 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center"
     android:id="@+id/loading_view"
-    android:visibility="gone"
+    android:visibility="visible"
     tools:visibility="visible"
     android:orientation="vertical">
 
@@ -34,6 +34,6 @@
         android:layout_marginTop="16dp"
         android:text="@string/loading"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@android:color/black" />
+        />
 
 </LinearLayout>

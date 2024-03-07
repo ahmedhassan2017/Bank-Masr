@@ -25,7 +25,7 @@
     <fragment
         android:id="@+id/detailesFragment"
         android:name="banquemisr.challenge05.ui.movies.details.DetailsFragment"
-        android:label="fragment_detailes"
+        android:label="Movie Details"
         tools:layout="@layout/fragment_detailes" />
 
 
