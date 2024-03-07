@@ -9,31 +9,41 @@
     tools:context=".ui.movies.home.MoviesFragment">
 
 
-    <include layout="@layout/loading_view"
-        tools:visibility="gone"/>
-    <include layout="@layout/check_internet_view"
-        tools:visibility="gone"/>
+    <include
+        layout="@layout/loading_view"
+        tools:visibility="gone" />
 
-    <ScrollView
+    <include
+        layout="@layout/check_internet_view"
+        tools:visibility="gone" />
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/now_playing"
-                android:textSize="20sp" />
+                android:textColor="@color/orange"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/nowPlaying_rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:textAlignment="center"
@@ -44,11 +54,31 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+        </LinearLayout>
+
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="?android:attr/listDivider" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/popular"
-                android:textSize="20sp" />
+                android:text="@string/top_rated"
+                android:textColor="@color/orange"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/popular_rv"
@@ -65,12 +95,30 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="?android:attr/listDivider" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/upcoming"
-                android:textSize="20sp" />
+                android:textColor="@color/orange"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/upcoming_rv"
@@ -88,7 +136,8 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
+</ScrollView>
 
 
 </LinearLayout>

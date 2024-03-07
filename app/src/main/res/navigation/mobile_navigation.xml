@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navigation_popular"
         android:name="banquemisr.challenge05.ui.movies.home.MoviesFragment"
-        android:label="Popular"
+        android:label="Home"
         tools:layout="@layout/fragment_movies" />
 
     <fragment

@@ -8,6 +8,7 @@ import banquemisr.challenge05.BuildConfig
 import banquemisr.challenge05.Models.Movie
 import banquemisr.challenge05.R
 import banquemisr.challenge05.databinding.MovieItemBinding
+import banquemisr.challenge05.utils.formatToOneDecimalPlace
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.squareup.picasso.Picasso
@@ -43,8 +44,9 @@ class MoviesAdapter(private var movies: List<Movie>?,
             .into(holder.binding.movieImage) // Your ImageView instance
 
 
-        holder.binding.movieName.text = movies?.get(position)?.title
+        holder.binding.movieTitle.text = movies?.get(position)?.title
         holder.binding.movieReleaseDate.text = movies?.get(position)?.releaseDate
+        holder.binding.movieRate.text = movies?.get(position)?.voteAverage?.formatToOneDecimalPlace().toString()
 
 
         holder.itemView.setOnClickListener {

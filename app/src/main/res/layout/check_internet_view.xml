@@ -13,15 +13,17 @@
 
 
     <TextView
+        android:padding="20dp"
         android:id="@+id/check_internet_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/no_internet_connection"
-        android:textColor="@color/black"
+        android:textColor="@color/lightBlue"
         android:textSize="18sp"
         android:drawablePadding="10dp"
         android:visibility="visible"
-        app:drawableStartCompat="@drawable/reload" />
+        app:drawableStartCompat="@drawable/reload"
+        app:drawableTint="@color/orange" />
 
 </LinearLayout>
