@@ -1,12 +1,11 @@
-package banquemisr.challenge05.ui.movies.home
+package banquemisr.challenge05.ui.movies.details
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import banquemisr.challenge05.Models.Movie
-import banquemisr.challenge05.Models.MovieResponse
+import banquemisr.challenge05.Models.MovieDetailsResponse
 import banquemisr.challenge05.domain.usecases.getMovieDetails.GetMovieDetailsUseCase
-import banquemisr.challenge05.domain.usecases.getMovies.GetMoviesUseCase
 import banquemisr.challenge05.utils.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -16,35 +15,29 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MoviesViewModel  @Inject constructor(val getMoviesUseCase: GetMoviesUseCase) : ViewModel()
+class DetailsViewModel @Inject constructor (val getMovieDetailsUseCase: GetMovieDetailsUseCase):ViewModel()
 {
-    val nowPlayingLivedata = MutableLiveData<MovieResponse>()
-    val popularLivedata = MutableLiveData<MovieResponse>()
-    val upcomingLivedata = MutableLiveData<MovieResponse>()
+    val movieDetailsLivedata = MutableLiveData<MovieDetailsResponse>()
     val error = SingleLiveEvent<String?>()
     var isLoading = MutableLiveData<Boolean>()
 
-    fun getMovies(type: String)
+
+
+    fun getMovieDetails(movieId: Int)
     {
         viewModelScope.launch(Dispatchers.IO) {
-            getMoviesUseCase.getMovies(type).onStart {
+            getMovieDetailsUseCase.getMovieDetails(movieId).onStart {
                 isLoading.postValue(true)
             }.catch {
                 isLoading.postValue(false)
                 error.postValue(it.message)
             }.collect {
-                when (type)
-                {
-                    "now_playing" -> nowPlayingLivedata.postValue(it)
-                    "top_rated" -> popularLivedata.postValue(it)
-                    "upcoming" -> upcomingLivedata.postValue(it)
-                }
+
+                movieDetailsLivedata.postValue(it)
+
                 isLoading.postValue(false)
             }
         }
     }
 
-
 }
-
-

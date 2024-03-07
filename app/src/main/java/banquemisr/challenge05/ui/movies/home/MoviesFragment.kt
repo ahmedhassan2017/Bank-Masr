@@ -101,7 +101,7 @@ class MoviesFragment : Fragment(), OnMovieClickListener
 
         Log.i("TAG", "onItemClicked: position : $position \n movie title : ${movie?.title}")
 
-        Constants.selectedMovie = movie
+        Constants.selectedMovieId = movie?.id
         navigateToDestination(requireActivity(), R.id.detailesFragment)
     }
 

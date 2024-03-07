@@ -1,5 +1,7 @@
 package banquemisr.challenge05.data.repository
 
+import banquemisr.challenge05.Models.Movie
+import banquemisr.challenge05.Models.MovieDetailsResponse
 import banquemisr.challenge05.Models.MovieResponse
 import banquemisr.challenge05.data.remote.ApiInterface
 import banquemisr.challenge05.domain.repositories.MoviesRepo
@@ -13,6 +15,11 @@ class MoviesRepoImp @Inject constructor(private val apiInterface: ApiInterface):
     override suspend fun getMovies(type: String): Flow<MovieResponse> {
         return flow {
             emit(apiInterface.getMovies(type))
+        }.flowOn(Dispatchers.IO)
+    }
+    override suspend fun getMovieDetails(movieId: Int): Flow<MovieDetailsResponse> {
+        return flow {
+            emit(apiInterface.getMovieDetails(movieId))
         }.flowOn(Dispatchers.IO)
     }
 }

@@ -1,10 +1,10 @@
 package banquemisr.challenge05.di
 
-import banquemisr.challenge05.data.remote.ApiInterface
-import banquemisr.challenge05.data.repository.MoviesRepoImp
 import banquemisr.challenge05.domain.repositories.MoviesRepo
-import banquemisr.challenge05.domain.usecases.GetMoviesUseCase
-import banquemisr.challenge05.domain.usecases.GetMoviesUseCaseImp
+import banquemisr.challenge05.domain.usecases.getMovieDetails.GetMovieDetailsUseCase
+import banquemisr.challenge05.domain.usecases.getMovieDetails.GetMovieDetailsUseCaseImp
+import banquemisr.challenge05.domain.usecases.getMovies.GetMoviesUseCase
+import banquemisr.challenge05.domain.usecases.getMovies.GetMoviesUseCaseImp
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,9 +18,16 @@ object UseCasesModule
 
     @Provides
     @Singleton
-    fun provideUseCase(repo:MoviesRepo): GetMoviesUseCase
+    fun provideMoviesUseCase(repo:MoviesRepo): GetMoviesUseCase
     {
         return GetMoviesUseCaseImp(repo)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMovieDetailsUseCase(repo:MoviesRepo): GetMovieDetailsUseCase
+    {
+        return GetMovieDetailsUseCaseImp(repo)
     }
 
 }

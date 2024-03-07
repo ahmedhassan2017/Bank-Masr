@@ -1,4 +1,4 @@
-package banquemisr.challenge05.domain.usecases
+package banquemisr.challenge05.domain.usecases.getMovies
 
 import banquemisr.challenge05.Models.MovieResponse
 import kotlinx.coroutines.flow.Flow

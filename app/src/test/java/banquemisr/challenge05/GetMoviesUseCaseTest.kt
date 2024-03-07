@@ -3,7 +3,7 @@ package banquemisr.challenge05
 import banquemisr.challenge05.Models.Movie
 import banquemisr.challenge05.Models.MovieResponse
 import banquemisr.challenge05.domain.repositories.MoviesRepo
-import banquemisr.challenge05.domain.usecases.GetMoviesUseCaseImp
+import banquemisr.challenge05.domain.usecases.getMovies.GetMoviesUseCaseImp
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
